@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
+
     @PostMapping("/signup")
 
     public ResponseEntity<?> signupCustomer(@RequestBody SignupRequest signupRequest){
+
         if (authService.hasCustomerWithEmail(signupRequest.getEmail()))
             return new ResponseEntity<>( "Customer already exist with this email",HttpStatus.NOT_ACCEPTABLE);
         UserDto createdCustomerDto = authService.createCustomer(signupRequest);
